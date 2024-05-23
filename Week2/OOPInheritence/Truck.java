@@ -1,5 +1,6 @@
 package Week2.OOPInheritence;
 
+
 public class Truck extends Vehicle {
     
 

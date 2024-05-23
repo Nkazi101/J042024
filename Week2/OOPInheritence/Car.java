@@ -2,7 +2,7 @@ package Week2.OOPInheritence;
 
 
 //the keyword for inheriting from a parent class is "extends"
-//the key for implementing an interface is "implements"
+//the keyword for implementing an interface is "implements"
 //java doesn't support for multiple inheritence
 //a class can implement any number of interfaces, but can extend only one class
 public class Car extends Vehicle implements VehicleBehaviors {
