@@ -63,6 +63,12 @@ public class CheckingAccount extends Account {
     public void monthlyprocessing(){
         //unimplemented
     }
+
+    @Override
+    public String toString() {
+        return "CheckingAccount [getName()=" + getName() + ", getAccountBalance()=" + getAccountBalance()
+                + ", getAccountNo()=" + getAccountNo() + ", getRoutingNo()=" + getRoutingNo() + "]";
+    }
     
 
     

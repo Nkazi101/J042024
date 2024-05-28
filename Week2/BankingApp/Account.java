@@ -21,6 +21,12 @@ public Account(String name, double accountBalance, String accountNo, String rout
     this.accountNo = accountNo;
     this.routingNo = routingNo;
 
+    // The this keyword is an essential part of Java's object-oriented programming:
+
+//Differentiating instance variables from local variables: Ensures that the code refers to the current object's fields.
+//Invoking current class methods: Allows calling another method within the same class.
+//Invoking current class constructors: Facilitates constructor chaining for better code reuse and initialization.
+
 }
 
 //getters and setters
