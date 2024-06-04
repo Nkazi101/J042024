@@ -26,6 +26,12 @@ public class ArrayListEx {
 
         System.out.println(names.get(1));
 
+        //for(datatype var: arraylist)
+        for(String name: names){
+
+            System.out.println(name);
+        }
+
 
 
 
