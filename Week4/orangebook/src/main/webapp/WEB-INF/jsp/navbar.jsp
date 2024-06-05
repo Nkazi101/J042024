@@ -8,9 +8,9 @@
 </head>
 <body>
     <div class="navbar">
-        <a href="">Students</a>
+        <a href="/students">Students</a>
         <a href="">SignIn</a>
-        <a href="">SignUp</a>
+        <a href="/signup">SignUp</a>
 </div>
 </body>
 </html>

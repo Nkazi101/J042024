@@ -7,7 +7,8 @@
     <link rel="stylesheet" href="/css/signup.css" />
 </head>
 <body>
-
+    <!-- allows you to render another webpage inside of a webpage -->
+<jsp:include page="navbar.jsp"/>
    
 <div class="signuppage">
     

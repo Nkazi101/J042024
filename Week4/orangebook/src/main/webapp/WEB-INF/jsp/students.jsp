@@ -9,14 +9,26 @@
     <title>Students</title>
 </head>
 <body>
+    <jsp:include page="navbar.jsp"/>
     <h1>Enrolled Students</h1>
 
-<c:forEach var="student" items="${students}">
-
-<p>${student.firstName}</p>
-<p>${student.lastName}</p>
-<p>${student.email}</p>
-
+<table>
+    <tr>
+        <th>First Name</th>
+        <th>Last Name</th>
+        <th>Email</th>
+    </tr>
+    <c:forEach var="student" items="${students}">
+    <tr>
+        <td>${student.firstName}</td>
+        <td>${student.lastName}</td>
+        <td>${student.email}</td>
+    </tr>
 </c:forEach>
+
+</table>
+
+
+
 </body>
 </html>

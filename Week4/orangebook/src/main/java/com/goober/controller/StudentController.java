@@ -30,6 +30,7 @@ public class StudentController {
     @GetMapping("/signup")
     public String signUp(){
 
+
         return "signup";
     }
 
@@ -39,6 +40,7 @@ public class StudentController {
     //when do you use the Model class as an input? Whenever you want to send data to a view
     @PostMapping("/signup")
     public String submitsignUp(@ModelAttribute Student student, Model model){
+
 
         //i call my list of students and add the student to the list
         students.add(student);
@@ -50,8 +52,17 @@ public class StudentController {
 
     }
 
+    @GetMapping("/students")
+    public String studentlist(Model model){
+
+        model.addAttribute("students", students);
+
+        return "students";
+
+    }
    
 
+   
 
 
 

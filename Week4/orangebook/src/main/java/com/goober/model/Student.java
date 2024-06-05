@@ -2,10 +2,12 @@ package com.goober.model;
 
 import java.time.LocalDate;
 
+import jakarta.persistence.Entity;
+
 public class Student {
 
 
-
+    //private instance variables
     private Long studentId;
     private String firstName;
     private String lastName;
@@ -17,10 +19,12 @@ public class Student {
     private String dateofBirth;
 
 
+    //empty constructor
     public Student(){
         
     }
 
+    //getters and setters
     public Long getStudentId() {
         return studentId;
     }
