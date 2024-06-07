@@ -24,6 +24,7 @@ public class Methods {
 
         System.out.println("The sum is: " + result);
 
+        
 
     }
 

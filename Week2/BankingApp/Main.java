@@ -15,7 +15,7 @@ public class Main {
 
         Account savingsAcct = new SavingsAccount("Star", 60456.70, "100","0810044", 6.7, 5, 5000);
 
-
+        
 
         System.out.println("Your account balance is: " + checkAcct.getAccountBalance());
 
@@ -50,3 +50,8 @@ public class Main {
     }
     
 }
+
+
+//a static method belongs to the class itself and a non-static method belongs to each object that is generated from the class.
+// if your method does something that doesn't depend on the individual characteristics of it's class, make it static. Otherwise, it should non-static.
+

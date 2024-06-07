@@ -11,7 +11,8 @@ public static void main(String[] args){
     System.out.println(", What is yours?");
     System.out.print("My name is John");
 
-
+    
+    Methods.addNumbers(5,6);
 }
 
 }
