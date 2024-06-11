@@ -1,0 +1,12 @@
+.course-list {
+
+display: flex;
+
+}
+
+.course-item{
+
+    border: 1px solid;
+
+
+}

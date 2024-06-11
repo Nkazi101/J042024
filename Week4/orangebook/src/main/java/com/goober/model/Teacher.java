@@ -39,7 +39,7 @@ public class Teacher {
     private String password;
 
     @OneToOne
-    @JoinColumn(name = "office_id", referencedColumnName = "office_id")
+    @JoinColumn(name = "office_id", referencedColumnName = "officeId")
     private Office office;
     
 }

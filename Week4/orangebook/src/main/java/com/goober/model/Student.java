@@ -14,11 +14,11 @@ import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
 
 //marks a class as a persistent entity
+//peristence is storing and retrieving objects from the database
 @Entity
 //specify the primary table for the annotated entity
 @Table(name = "student")
 public class Student {
-
 
     //private instance variables
     //specifies the primary key for any entity

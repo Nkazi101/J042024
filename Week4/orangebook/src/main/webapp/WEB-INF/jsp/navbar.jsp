@@ -11,6 +11,7 @@
         <a href="/students">Students</a>
         <a href="">SignIn</a>
         <a href="/signup">SignUp</a>
+        <a href="/courses">Courses</a>
 </div>
 </body>
 </html>
