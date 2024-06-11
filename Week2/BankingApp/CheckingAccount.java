@@ -64,6 +64,9 @@ public class CheckingAccount extends Account {
         //unimplemented
     }
 
+
+    //allows you to display an object in String form
+    //the toString methods generates  string representation of an object
     @Override
     public String toString() {
         return "CheckingAccount [getName()=" + getName() + ", getAccountBalance()=" + getAccountBalance()
