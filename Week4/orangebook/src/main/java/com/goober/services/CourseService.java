@@ -24,9 +24,17 @@ public class CourseService {
     @Autowired
     private CourseRepository courseRepository;
 
+    
+    //constructor injection
+    // public CourseService(CourseRepository courseRepository){
+
+    //     this.courseRepository = courseRepository;
+    // }
+
 
     public List<Course> findAllCourses(){
 
+      
         //the find all method will retreive all the courses in the course table
         //we declared a variable called "courses" which will hold/store the results of the query
         List<Course> courses = courseRepository.findAll();

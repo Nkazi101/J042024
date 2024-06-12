@@ -59,7 +59,7 @@ public interface TeacherRepository extends JpaRepository<Teacher, Long> {
 
 // returns an entity identified using id.
 
-// 10	
+// 10 INSERT into (first_name, last_name, dateofbirth, email, phonenumber, password) VALUES ()
 // save(Employee entity): Employee
 
 // saves an entity and return the updated one.

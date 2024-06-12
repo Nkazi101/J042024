@@ -1,5 +1,6 @@
 package com.goober.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -9,14 +10,18 @@ import org.springframework.web.bind.annotation.PostMapping;
 import java.util.ArrayList;
 import java.util.List;
 import com.goober.model.Student;
+import com.goober.services.StudentService;
 
 //the controller manages/processes user requests coming from the client
 //when a request is made on a webpage, the dispatcher servlet finds the appropriate method to process the request based on the httpmethod and endpoint name
 @Controller
 public class StudentController {
 
-    //declare a list of students
-    List<Student> students = new ArrayList<>();
+    // //declare a list of students
+    // List<Student> students = new ArrayList<>();
+
+    @Autowired
+    private StudentService studentService;
 
     //http methods/operations/mappings
     //GET - retrieve or load a resource, e.g. just loading a webpage
@@ -39,27 +44,25 @@ public class StudentController {
     //the Model class allows you to send data to your jsp's/views.
     //when do you use the Model class as an input? Whenever you want to send data to a view
     @PostMapping("/signup")
-    public String submitsignUp(@ModelAttribute Student student, Model model){
+    public String submitsignUp(@ModelAttribute Student student){
 
+        Student savedStudent = studentService.signUp(student);
 
-        //i call my list of students and add the student to the list
-        students.add(student);
+        // //i call my list of students and add the student to the list
+        // students.add(student);
 
-        //this will add the students arrays to the students.jsp webpage
-        model.addAttribute("students", students);
-
-        return "students";
+        return "courses";
 
     }
 
-    @GetMapping("/students")
-    public String studentlist(Model model){
+    // @GetMapping("/students")
+    // public String studentlist(Model model){
 
-        model.addAttribute("students", students);
+    //     model.addAttribute("students", students);
 
-        return "students";
+    //     return "students";
 
-    }
+    // }
    
 
    
