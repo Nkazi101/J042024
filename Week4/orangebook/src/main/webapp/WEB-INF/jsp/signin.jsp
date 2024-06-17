@@ -11,7 +11,7 @@
 
     <div class="signinpage">
         <div class="signinform">
-        <form>
+        <form method="post" action="/signin">
     <h1>Sign In</h1>
             <label>Email</label> <br>
             <input type="email" name="email"> <br>

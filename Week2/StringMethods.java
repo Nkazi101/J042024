@@ -43,8 +43,6 @@ public class StringMethods {
             System.out.println(veg);
         }
 
-
-
     }
     
 }

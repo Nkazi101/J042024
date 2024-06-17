@@ -11,6 +11,8 @@ import java.util.ArrayList;
 import java.util.List;
 import com.goober.model.Student;
 import com.goober.services.StudentService;
+import org.springframework.web.bind.annotation.RequestParam;
+
 
 //the controller manages/processes user requests coming from the client
 //when a request is made on a webpage, the dispatcher servlet finds the appropriate method to process the request based on the httpmethod and endpoint name
@@ -41,8 +43,7 @@ public class StudentController {
 
 
     //@ModelAttribute is going to bind the data from the form to the input object.
-    //the Model class allows you to send data to your jsp's/views.
-    //when do you use the Model class as an input? Whenever you want to send data to a view
+    
     @PostMapping("/signup")
     public String submitsignUp(@ModelAttribute Student student){
 
@@ -51,8 +52,40 @@ public class StudentController {
         // //i call my list of students and add the student to the list
         // students.add(student);
 
-        return "courses";
+        return "redirect:/courses";
 
+    }
+
+
+
+    @GetMapping("/signin")
+    public String signIn(){
+
+        return "signin";
+
+    }
+
+    //the Model class allows you to send data to your jsp's/views.
+    //when do you use the Model class as an input? Whenever you want to send data to a view
+    @PostMapping("/signin")
+    public String submitSignIn(@ModelAttribute Student student, Model model){
+
+        //if the exception in the sign in method in the student service is thrown, we should be able to catch it. if any errors occur in the try block, the catch block will have an alternative batch of code that will run
+
+        try {
+       Student loggedInStudent =  studentService.signIn(student);
+        
+       //addAttribute allows you to pass an object to a webpage
+       model.addAttribute("student", loggedInStudent);
+
+       return "home";
+
+        }
+        catch(Exception e){
+
+            System.out.println(e.getMessage());
+            return "signin";
+        }
     }
 
 
@@ -60,7 +93,8 @@ public class StudentController {
 
 
 
-    
+
+
 
     // @GetMapping("/students")
     // public String studentlist(Model model){
