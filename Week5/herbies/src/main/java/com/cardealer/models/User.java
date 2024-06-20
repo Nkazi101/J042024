@@ -7,6 +7,8 @@ import com.cardealer.enums.UserRole;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -46,6 +48,11 @@ public class User {
     @Column(name = "phonenumber")
     private String phoneNumber;
 
+
+    //@Enumerated specifies how the enum should be persisted in the database
+    //@EnumType.ORDINAL: store the enum as an integer based on index
+    //@EnumType.STIRNG: store the enum as a string, corresponding to the name of enum constant
+    @Enumerated(EnumType.STRING)
     @Column(name = "role")
     private UserRole role;
 

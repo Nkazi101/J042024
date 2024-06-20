@@ -4,11 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" href="/css/signup.css"/>
 </head>
 <body>
     
     <jsp:include page ="navbar.jsp"/>
 
+    <div class = "signuppage">
+        <div class = "signupbox">
     <form method="post" action="/signup">
 
         <label>First Name</label> <br>
@@ -28,5 +31,7 @@
 
     </form>
 
+</div>
+</div>
 </body>
 </html>

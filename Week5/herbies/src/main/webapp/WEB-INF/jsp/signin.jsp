@@ -1,3 +1,4 @@
+<%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,16 +10,28 @@
     
 <jsp:include page="navbar.jsp"/>
 
-<form>
+<form method="post" action="/signin">
 
-    <label>Email</label>
-    <input type = "email" name="email"/>
+<c:if test="${not empty errorMessage}">
 
-    <label>Password</label>
-    <input type="password" name="password" />
+    <div>${errorMessage}</div>
+    
+</c:if>
+
+    <label>Email</label> <br>
+    <input type = "email" name="email"/> <br>
+
+    <label>Password</label> <br>
+    <input type="password" name="password" /> <br>
+
+    <a>Forgot Password?</a> <br>
+    <a>Forgot Username?</a> <br>
+
+    <button type="submit">Sign In</button>
 
 
 </form>
+
 
 
 </body>
