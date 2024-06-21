@@ -19,6 +19,16 @@
 	</properties>
 	<dependencies>
 
+		<!-- <dependency>
+			<groupId>org.flywaydb</groupId>
+			<artifactId>flyway-core</artifactId>
+			<version>7.15.0</version>
+		</dependency>
+ -->
+
+	
+
+
 <dependency>
     <groupId>org.eclipse.jetty</groupId>
     <artifactId>glassfish-jstl</artifactId>

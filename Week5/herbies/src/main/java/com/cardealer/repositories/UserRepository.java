@@ -47,6 +47,7 @@ public interface UserRepository extends JpaRepository <User, Long> {
 // checks if an entity exists using its id.
 
 // 7 select * from teacher;
+
 // findAll():Iterable< Employee >
 
 // returns all the entities.
