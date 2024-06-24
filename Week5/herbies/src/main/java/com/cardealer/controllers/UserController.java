@@ -76,12 +76,15 @@ public class UserController {
     //the Model interface allows you to send data to your jsp's/views.
     //when do you use the Model interface as an input? Whenever you want to send data to a view
 
+    //@RequestParam allows spring to extract input data that is typically passed from form data or query parameter
     @PostMapping("/signin")
-    public String submitSignIn(@ModelAttribute User user, Model model){
+    public String submitSignIn(@RequestParam("email") String email, @RequestParam("password") String password, Model model){
 
         try{
+
+         
        
-         User authenticatedUser = userService.signIn(user);
+         User authenticatedUser = userService.signIn(email, password);
 
          //the parameters of addAttribute include: "attrbuteName" used to access the object on the webpage, and then you have the actual object you want to pass to the webpage
          model.addAttribute("user", authenticatedUser);

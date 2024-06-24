@@ -56,8 +56,8 @@ public class User {
     @Column(name = "role")
     private UserRole role;
 
-    @Column(name = "isAdmin")
-    private boolean isAdmin;
+    @Column(name = "isAdmin", nullable = false)
+    private Boolean isAdmin= false;
 
     //onetomany relationships are stored in a collection/list
     //one represents the class you're in, many represents the collection/list being declared
@@ -66,19 +66,23 @@ public class User {
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     private List<Car> cars;
 
-    public User(String firstName, String lastName, LocalDate dateOfBirth, String address, String email, String password,
-            String phoneNumber, UserRole role, boolean isAdmin) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.dateOfBirth = dateOfBirth;
-        this.address = address;
-        this.email = email;
-        this.password = password;
-        this.phoneNumber = phoneNumber;
-        this.role = role;
-        this.isAdmin = isAdmin;
-    }
+    // public User(String firstName, String lastName, LocalDate dateOfBirth, String address, String email, String password,
+    //         String phoneNumber, UserRole role, boolean isAdmin) {
+    //     this.firstName = firstName;
+    //     this.lastName = lastName;
+    //     this.dateOfBirth = dateOfBirth;
+    //     this.address = address;
+    //     this.email = email;
+    //     this.password = password;
+    //     this.phoneNumber = phoneNumber;
+    //     this.role = role;
+    //     this.isAdmin = isAdmin;
+    // }
 
+    public User(){
+
+
+    }
 
     
     

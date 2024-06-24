@@ -24,6 +24,8 @@
     <label>Password</label> <br>
     <input type="password" name="password" /> <br>
 
+    <input type="checkbox" name="isAdmin" value="${null}"/>
+
     <a>Forgot Password?</a> <br>
     <a>Forgot Username?</a> <br>
 

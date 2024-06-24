@@ -2,6 +2,7 @@ package com.cardealer.services;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -33,6 +34,13 @@ public class CarService {
         return availCars;
     }
 
+    public Car findCarById(Long id){
+
+        Optional<Car> car = carRepository.findById(id);
+
+        return car.get();
+
+    }
     
     
 }

@@ -28,19 +28,19 @@ public class UserService {
     }
 
 
-    public User signIn(User user) throws Exception {
+    public User signIn(String email, String password) throws Exception {
 
         //data we're working with: 
         //email , password
 
         //check if the user exists in the database based on the email given
-        User foundUser = userRepository.findByEmail(user.getEmail());
+        User foundUser = userRepository.findByEmail(email);
 
         //if a user is returned from the database
         if(foundUser != null){
 
             //check if the found user's password matches the user's password entered in the sign-in page
-            if(foundUser.getPassword().equals(user.getPassword())){
+            if(foundUser.getPassword().equals(password)){
 
                 //output the authenticated user
                 return foundUser;

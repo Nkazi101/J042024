@@ -1,0 +1,26 @@
+.carpage {
+
+display: flex;
+flex-wrap: wrap;
+
+}
+
+
+.caritems{
+
+    border:1px solid;
+    padding: 10px;
+    margin: 5px;
+    border-radius: 10px;
+
+}
+
+.caritems img{
+
+width: 100%;
+height: auto;
+max-width: 200px;
+max-height: 200px;
+object-fit: contain;
+
+}
