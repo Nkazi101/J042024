@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.cardealer.models.User;
 import com.cardealer.services.UserService;
 
+import jakarta.servlet.http.HttpSession;
+
 //the controller manages/processes user requests coming from the client
 //when a request is made on a webpage, the dispatcher servlet finds the appropriate method to process the request based on the httpmethod and endpoint name
 
@@ -53,7 +55,6 @@ public class UserController {
         return "signin";
     }
 
-
     @GetMapping("/signup")
     public String signUp(){
 
@@ -77,15 +78,19 @@ public class UserController {
     //when do you use the Model interface as an input? Whenever you want to send data to a view
 
     //@RequestParam allows spring to extract input data that is typically passed from form data or query parameter
+    //Session is used to save user information temporarily on the server
+    //HttpSession is used to store temporary data/ session-specific data
     @PostMapping("/signin")
-    public String submitSignIn(@RequestParam("email") String email, @RequestParam("password") String password, Model model){
+    public String submitSignIn(@RequestParam("email") String email, @RequestParam("password") String password, Model model, HttpSession session){
 
         try{
 
          
-       
          User authenticatedUser = userService.signIn(email, password);
 
+         session.setAttribute("user", authenticatedUser);
+
+         session.setAttribute("userRole", authenticatedUser.getRole());
          //the parameters of addAttribute include: "attrbuteName" used to access the object on the webpage, and then you have the actual object you want to pass to the webpage
          model.addAttribute("user", authenticatedUser);
 
@@ -102,7 +107,14 @@ public class UserController {
 
     }
 
+    @GetMapping("/logout")
+    public String logout(HttpSession session){
 
+        //clear any data that is set in the session
+        session.invalidate();
+
+        return "signin";
+    }
 
 
 

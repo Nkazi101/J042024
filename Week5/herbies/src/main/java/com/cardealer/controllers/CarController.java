@@ -47,4 +47,12 @@ public class CarController {
     }
 
 
+    @GetMapping("/addcar")
+    public String addCar(){
+
+        return "addcar";
+    }
+
+
+
 }
