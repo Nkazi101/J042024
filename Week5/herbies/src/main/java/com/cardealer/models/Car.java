@@ -15,6 +15,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.PrePersist;
 import jakarta.persistence.Table;
 import lombok.Data;
 
@@ -50,8 +51,10 @@ public class Car {
     @Column(name = "mileage")
     private double mileage;
 
-    @Column(name = "dateofpurchase")
-    private LocalDate dateOfPurchase;
+    //the date vehicle was added to inventory
+    
+    @Column(name = "dateAdded")
+    private LocalDate dateAdded;
 
     @Column(name = "dateSold")
     private LocalDate dateSold;
@@ -84,6 +87,9 @@ public class Car {
     @OneToMany
     @JoinColumn(name = "car_id", referencedColumnName = "id")
     public List<Photo> photos;
+
+    @Column(name = "discountapplied")
+    private Boolean discountApplied;
 
 
     public Car(String manufacturerName, String model, int year, String color, String transmission, double mileage,
