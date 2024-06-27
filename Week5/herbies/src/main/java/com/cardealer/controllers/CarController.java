@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.cardealer.models.Car;
 import com.cardealer.services.CarService;
@@ -66,5 +67,22 @@ public class CarController {
         return "redirect:/cars";
 
     }
+
+
+    //Granularity: @RequestParam works at a parameter level, extracting a single request parameter at a time. @ModelAttribute , on the other hand, works at an object level, binding multiple request parameters to an object's fields.
+    @GetMapping("/searchmodel")
+    public String searchCarByModel(@RequestParam("model") String carModel, Model model){
+
+        List<Car> cars = carService.findCarByModel(carModel);
+
+        model.addAttribute("availCars", cars);
+        
+        return "availablecars";
+
+
+    }
+
+
+    
 
 }

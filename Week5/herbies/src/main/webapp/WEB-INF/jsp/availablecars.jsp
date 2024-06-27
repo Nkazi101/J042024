@@ -9,13 +9,40 @@
 </head>
 <body>
     <jsp:include page="navbar.jsp"/>
-
     <h1>Cars</h1>
+
+    <!-- all webpages and forms on webpages work with controllers -->
+    <form method="get" action="/searchmodel">
+    <input type="text" name="model" placeholder="Enter car model"/>
+        <button type="submit">Search</button>
+</form>
+
+<form>
+
+    <label>Sort By:</label>
+    <select name="sortBy">
+
+        <option value="price">Price</option>
+        <option value="year">Year</option>
+
+</select>
+<label>Order: </label>
+<select name="order">
+
+    <option value="asc">Lowest to Highest</option>
+    <option value="desc">Highest to Lowest</option>
+
+</select>
+<button type="submit">Submit</button>
+
+
+</form>
+
 <div class="carpage">
 
 <c:forEach var ="car" items="${availCars}">
 
-<div class="caritems">
+<div class="caritems"> 
 
     <a href="/cardetail/${car.id}">
 <img src="${car.photoUrl}" />

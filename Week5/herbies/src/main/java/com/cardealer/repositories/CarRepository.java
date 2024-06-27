@@ -15,6 +15,9 @@ public interface CarRepository extends JpaRepository <Car, Long> {
     @Query(value = "select exists(select 1 from car where vin = ?1)", nativeQuery = true)
     public boolean existsByVIN(String vin);
 
+    @Query(value = "select * from car where model = ?1", nativeQuery = true)
+    public List<Car> findCarByModel(String model);
+
     // @Query(value = "select * from car where isavailable = true", nativeQuery = true)
     // public List<Car> findByIsAvailableTrue();
 

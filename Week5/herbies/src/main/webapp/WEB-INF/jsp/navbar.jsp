@@ -31,7 +31,7 @@
 
     <c:when test="${sessionScope.userRole == 'BUYER'}">
    
-    <a href="#">User Profile</a>
+    <a href="/userprofile">User Profile</a>
     <a href="#">Cart</a>
     <a href="/logout">Logout</a>
     </c:when>

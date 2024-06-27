@@ -1,9 +1,13 @@
 package com.cardealer.services;
 
+
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.cardealer.enums.UserRole;
+import com.cardealer.models.Car;
 import com.cardealer.models.User;
 import com.cardealer.repositories.UserRepository;
 
@@ -55,5 +59,16 @@ public class UserService {
 
     }
 
+   public User findUserById(Long id){
+
+    Optional<User> user = userRepository.findById(id);
+
+
+    return user.get();
+
+   }
+   
+
+ 
 
 }
