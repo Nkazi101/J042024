@@ -7,6 +7,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.cardealer.models.User;
@@ -126,13 +128,43 @@ public class UserController {
        //i can pass it to user profile page for display
 else{
 
-    model.addAttribute("user", sessionUser);
+    model.addAttribute("user", user);
 
     return "userprofile";
 
 }
     }
     
+    //we often use @PathVariable with a hyperlink in our webpage
+@GetMapping("/editprofile/{id}")
+public String editProfile(@PathVariable Long id, Model model){
+
+//retrieve the user object we want to edit from the database
+User user = userService.findUserById(id);
+
+//we want to pass that user object to the edit profile so we can edit the object
+model.addAttribute("user", user);
+
+return "editprofile";
+
+}
+
+
+// @PutMapping("/{id}") 
+// public User updateUser(@PathVariable Long id, @RequestBody User user) { 
+// User updatedUser = userService.updateUser(id, user); 
+// return user; 
+// }
+
+@PostMapping("/editprofile")
+public String updateProfile(@ModelAttribute User user, HttpSession session){
+
+    User editedUser = userService.editProfile(user, session);
+
+    return "redirect:/userprofile";
+
+}
+
 
 
 

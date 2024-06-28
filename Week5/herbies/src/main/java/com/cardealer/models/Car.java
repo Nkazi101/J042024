@@ -14,6 +14,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.PrePersist;
 import jakarta.persistence.Table;
@@ -89,7 +90,10 @@ public class Car {
     public List<Photo> photos;
 
     @Column(name = "discountapplied")
-    private Boolean discountApplied;
+    private Boolean discountApplied = false;
+
+    @ManyToMany(mappedBy = "itemsInCart")
+    private List<Cart> carts;
 
 
     public Car(String manufacturerName, String model, int year, String color, String transmission, double mileage,

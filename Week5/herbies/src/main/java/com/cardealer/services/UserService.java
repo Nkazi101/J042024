@@ -11,6 +11,8 @@ import com.cardealer.models.Car;
 import com.cardealer.models.User;
 import com.cardealer.repositories.UserRepository;
 
+import jakarta.servlet.http.HttpSession;
+
 @Service
 public class UserService {
     
@@ -69,6 +71,29 @@ public class UserService {
    }
    
 
+   public User editProfile(User user, HttpSession session){
+    
+    User sessionUser = (User) session.getAttribute("user");
+
+    //retrieve the object you want to modify
+    //go to the database and find the user that needs to be edited
+    User usertoedit = userRepository.findById(sessionUser.getId()).orElse(null);
+
+    //modify the object with information from the edit profile page
+    usertoedit.setFirstName(user.getFirstName());
+    usertoedit.setLastName(user.getLastName());
+    usertoedit.setDateOfBirth(user.getDateOfBirth());
+    usertoedit.setAddress(user.getAddress());
+    usertoedit.setEmail(user.getEmail());
+    usertoedit.setPhoneNumber(user.getPhoneNumber());
+
+    //store the modified object in the user table
+    //when you modify and object before calling the save method in the repository, it will run an update sql query instead of an insert query
+    User editedUser = userRepository.save(usertoedit);
+
+    return editedUser;
+
+   }
  
 
 }
