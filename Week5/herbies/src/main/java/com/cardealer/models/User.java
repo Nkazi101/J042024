@@ -14,6 +14,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.Data;
 
@@ -48,6 +49,9 @@ public class User {
     @Column(name = "phonenumber")
     private String phoneNumber;
 
+    @OneToOne
+    @JoinColumn(name = "cart_id", referencedColumnName = "id")
+    private Cart cart;
 
     //@Enumerated specifies how the enum should be persisted in the database
     //@EnumType.ORDINAL: store the enum as an integer based on index
@@ -87,3 +91,12 @@ public class User {
     
     
 }
+
+
+//backlog:
+
+
+//associate user with cart so user can access the same cart upon login on another device
+//add a remove all button to cart page
+//take in multiple photos on add car page
+//spring security

@@ -5,6 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.cardealer.models.Cart;
 import com.cardealer.services.CartService;
@@ -12,12 +13,13 @@ import com.cardealer.services.CartService;
 import jakarta.servlet.http.HttpSession;
 
 @Controller
+@RequestMapping("/cart")
 public class CartController {
 
     @Autowired
     private CartService cartService;
 
-    @GetMapping("/cart")
+    @GetMapping
     public String viewCart(HttpSession session, Model model){
 
 
@@ -39,5 +41,18 @@ public class CartController {
         return "redirect:/cart";
 
     }
+
+    @GetMapping("/remove/{id}")
+    public String removeFromCart(@PathVariable Long id, HttpSession session){
+
+        cartService.removeFromCart(id, session);
+
+        return "redirect:/cart";
+
+    }
+
+
+
+
     
 }

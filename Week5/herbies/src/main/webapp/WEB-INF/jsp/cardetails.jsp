@@ -54,7 +54,7 @@
     <label>Body Style:</label>
     <p>${car.bodyStyle}</p>
 
-    <a href="/add/${car.id}"><button>Add To Cart</button></a>
+    <a href="/cart/add/${car.id}"><button>Add To Cart</button></a>
 
 </div>
 </body>
