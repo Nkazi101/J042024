@@ -23,6 +23,8 @@
 </div>
     </c:forEach>
 
+    <a href="/v1/checkout/sessions"><button>Checkout</button></a>
+
 </div>
 </body>
 </html>
