@@ -29,6 +29,7 @@ public class Transaction {
     @JoinColumn(name = "transaction_id", referencedColumnName = "id")
     private List<Car> items;
 
+    
     @ManyToOne
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     private User user;
@@ -40,7 +41,7 @@ public class Transaction {
     private double tax;
 
     @Column(name = "totalamount")
-    private BigDecimal totalAmount;
+    private double totalAmount;
     
     
 }

@@ -1,6 +1,5 @@
 package com.cardealer.controllers;
 
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.cardealer.models.Car;
 import com.cardealer.models.Cart;
 import com.cardealer.services.CartService;
+import com.cardealer.services.TransactionService;
 import com.stripe.Stripe;
 import com.stripe.exception.StripeException;
 import com.stripe.model.Balance;
@@ -40,6 +40,9 @@ public class StripeController {
 
     @Autowired
     private CartService cartService;
+
+    @Autowired
+    private TransactionService transactionService;
 
 
     //ResponseEntity<Object> represents the entire http response, and it includes: status code, headers, body
@@ -79,7 +82,7 @@ public class StripeController {
 
 
     @GetMapping("/v1/checkout/sessions")
-    public String createCheckout(HttpSession session){
+public String createCheckout(HttpSession session){
 
   Stripe.apiKey = stripeApiKey;
  
@@ -96,11 +99,14 @@ List<SessionCreateParams.LineItem> lineitems = new ArrayList<>();
         .build()
     );
   }
+
 SessionCreateParams params =
   SessionCreateParams.builder()
-    .setSuccessUrl("https://localhost:8080/success")
+    .setSuccessUrl("http://localhost:8080/payment/success")
+    .setCancelUrl("http://localhost:8080/payment/failed")
     .addAllLineItem(lineitems)
     .setMode(SessionCreateParams.Mode.PAYMENT)
+    
     .build();
 
 
@@ -108,19 +114,32 @@ SessionCreateParams params =
 
         Session sessionStripe = Session.create(params);
 
+        // Long amount = sessionStripe.getAmountTotal();
+
         return "redirect:" + sessionStripe.getUrl();
+
+      
         
     } catch (Exception e) {
        
         return "redirect:/checkout/error";
     }
-
-
-
         
     }
 
 
+@GetMapping("/payment/success")
+public String successPay(HttpSession session){
+
+  Cart cart = cartService.getCart(session);
+
+  transactionService.createTransaction(cart, session);
+
+
+  return "success";
+
+
+}
 
 
 
