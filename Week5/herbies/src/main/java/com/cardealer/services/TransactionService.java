@@ -1,6 +1,7 @@
 package com.cardealer.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.data.web.SpringDataWebProperties.Sort;
 import org.springframework.stereotype.Service;
 import java.time.LocalDate;
 
@@ -72,5 +73,17 @@ public class TransactionService {
 
         return total;
     }
+
+
+    public List<Transaction> getAllTransactions(){
+
+
+        List<Transaction> allTransactions = transactionRepository.findAllOrderByDateAsc();
+ 
+
+        return allTransactions;
+
+    }
+
     
 }

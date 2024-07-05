@@ -99,4 +99,6 @@ public class User {
 //associate user with cart so user can access the same cart upon login on another device
 //add a remove all button to cart page
 //take in multiple photos on add car page
+
 //spring security
+//unit testing

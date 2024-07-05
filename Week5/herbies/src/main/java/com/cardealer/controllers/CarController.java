@@ -26,8 +26,6 @@ public class CarController {
 
         List<Car> availCars = carService.findAvailableCars();
 
-        
-
         model.addAttribute("availCars", availCars);
 
         return "availablecars";
