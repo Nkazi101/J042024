@@ -1,3 +1,4 @@
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>  
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -12,7 +13,7 @@
 
     <div class = "signuppage">
         <div class = "signupbox">
-    <form method="post" action="/signup">
+    <form:form method="post" action="/signup">
 
         <label>First Name</label> <br>
         <input type ="text" name = "firstName"/> <br>
@@ -29,7 +30,7 @@
 
         <button type = "submit">Sign-Up</button>
 
-    </form>
+    </form:form>
 
 </div>
 </div>

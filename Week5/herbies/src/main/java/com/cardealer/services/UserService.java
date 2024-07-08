@@ -4,6 +4,11 @@ package com.cardealer.services;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.authority.AuthorityUtils;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.cardealer.enums.UserRole;
@@ -14,12 +19,14 @@ import com.cardealer.repositories.UserRepository;
 import jakarta.servlet.http.HttpSession;
 
 @Service
-public class UserService {
+public class UserService implements UserDetailsService {
     
 
     @Autowired
     private UserRepository userRepository;
 
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     //going in the method is user information from the sign up page in the form of a user object\
     //going out of the method(after the user information is processed) is a saved User object
@@ -27,7 +34,7 @@ public class UserService {
 
 
         user.setRole(UserRole.BUYER);
-
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
         User savedUser =  userRepository.save(user);
 
         return savedUser;
@@ -46,7 +53,7 @@ public class UserService {
         if(foundUser != null){
 
             //check if the found user's password matches the user's password entered in the sign-in page
-            if(foundUser.getPassword().equals(password)){
+            if(passwordEncoder.matches(password, foundUser.getPassword())){
 
                 //output the authenticated user
                 return foundUser;
@@ -95,5 +102,20 @@ public class UserService {
 
    }
  
+   //create an implemenation of loadUserByUserName
+   @Override
+   public UserDetails loadUserByUsername(String email) {
+
+    User user = userRepository.findByEmail(email);
+
+    if(user == null){
+        throw new UsernameNotFoundException("User not found");
+    }
+    //create a return a UserDetails object based on the retrieve user
+    return new org.springframework.security.core.userdetails.User(user.getEmail(),user.getPassword(),
+    //ser the list of authorities(roles) granted to the user
+    AuthorityUtils.createAuthorityList("ROLE_" + user.getRole()));
+
+   }
 
 }
