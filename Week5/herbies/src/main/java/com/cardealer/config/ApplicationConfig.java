@@ -10,5 +10,8 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 @EntityScan(basePackages="com.cardealer.models")
 public class ApplicationConfig {
+
+
+    
     
 }

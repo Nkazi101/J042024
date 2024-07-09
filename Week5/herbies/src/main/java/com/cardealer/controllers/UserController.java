@@ -83,7 +83,7 @@ public class UserController {
     //@RequestParam allows spring to extract input data that is typically passed from form data or query parameter
     //Session is used to save user information temporarily on the server
     //HttpSession is used to store temporary data/ session-specific data
-    @PostMapping("/signin")
+    @PostMapping("/signinsubmit")
     public String submitSignIn(@RequestParam("email") String email, @RequestParam("password") String password, Model model, HttpSession session){
 
         try{
@@ -91,9 +91,11 @@ public class UserController {
          
          User authenticatedUser = userService.signIn(email, password);
 
+         //concurrent session refer to the
          session.setAttribute("user", authenticatedUser);
 
          session.setAttribute("userRole", authenticatedUser.getRole());
+         
          //the parameters of addAttribute include: "attrbuteName" used to access the object on the webpage, and then you have the actual object you want to pass to the webpage
          model.addAttribute("user", authenticatedUser);
 

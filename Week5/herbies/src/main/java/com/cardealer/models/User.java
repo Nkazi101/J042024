@@ -60,6 +60,9 @@ public class User {
     @Column(name = "role")
     private UserRole role;
 
+    @Column(name = "rolie")
+    private String rolie;
+
     @Column(name = "isAdmin", nullable = false)
     private Boolean isAdmin= false;
 

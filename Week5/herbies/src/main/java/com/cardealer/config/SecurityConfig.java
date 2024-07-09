@@ -1,13 +1,17 @@
 package com.cardealer.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.web.embedded.tomcat.TomcatServletWebServerFactory;
+import org.springframework.boot.web.servlet.server.ServletWebServerFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Lazy;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
@@ -15,6 +19,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 
 import com.cardealer.services.UserService;
 
+//indicates that this class contains spring bean definitions
 @Configuration
 //enables web security support and provides the spring mvc integration
 @EnableWebSecurity
@@ -42,8 +47,11 @@ public class SecurityConfig {
         //starts the configuration for authorizing http requests
         .authorizeHttpRequests(authorizeRequests -> authorizeRequests
         //specify the url patterns and their access rules
-        .requestMatchers("/", "/signin", "/cars", "/signup", "/cart", "/WEB-INF/jsp/*", "/css/**").permitAll()
-        .requestMatchers("/transactions").hasAnyRole("SELLER")
+        //.permitAll() allows anyone to access the endpoints
+        .requestMatchers("/", "/signin", "/signinsubmit", "/cars", "/cardetail/{id}", "/signup", "/cart", "/WEB-INF/jsp/*", "/add/{id}", "/remove/{id}", "/userprofile", "editprofile/{id}","/editprofile", "/css/**").permitAll()
+        //.requestMatchers is used to configure url patterns and their access rules
+        // .requestMatchers("/transactions", "/addcar").hasAnyRole("SELLER")
+        // .requestMatchers("/v1/checkout/sessions").hasAnyAuthority("ROLE_BUYER")
         //any other request MUST be authenticated
         .anyRequest().authenticated()
     
@@ -70,7 +78,23 @@ public class SecurityConfig {
     .invalidateHttpSession(true)
     //delete the session cookie
     .deleteCookies("JSESSIONID")
-    .permitAll());
+    .permitAll())
+    
+    
+    .sessionManagement(session -> session
+
+    .sessionFixation().migrateSession()
+    //define our session creation policy
+    .sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED)
+    //how many sessions a user can 
+    .maximumSessions(3)
+    //if the maximum sessions are reached what do we want to do
+    //true: prevent new session, false: allow new session and expire the old one
+    .maxSessionsPreventsLogin(false)
+
+    
+
+    ) ;
 
         return http.build();
 
@@ -100,6 +124,17 @@ public class SecurityConfig {
         return userService;
     }
 
+
+    @Bean
+    public ServletWebServerFactory servletContainer(){
+
+        TomcatServletWebServerFactory tomcat = new TomcatServletWebServerFactory();
+
+        tomcat.addContextCustomizers(context -> context.setSessionTimeout(30));
+
+        return tomcat;
+
+    }
 
 
 
