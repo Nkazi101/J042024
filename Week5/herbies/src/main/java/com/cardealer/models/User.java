@@ -1,7 +1,11 @@
 package com.cardealer.models;
 
 import java.time.LocalDate;
+import java.util.Collection;
 import java.util.List;
+
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import com.cardealer.enums.UserRole;
 
@@ -21,7 +25,7 @@ import lombok.Data;
 @Entity
 @Table(name = "user")
 @Data
-public class User {
+public class User implements UserDetails {
 
 
     @Id
@@ -60,8 +64,24 @@ public class User {
     @Column(name = "role")
     private UserRole role;
 
-    @Column(name = "rolie")
-    private String rolie;
+    //this specifies that the method returns a collection of objects that implement the "GrantedAuthority" interface, which represents an authority granted to a user
+    @Override
+    public  Collection<? extends GrantedAuthority> getAuthorities(){
+
+        return role.getAuthorities();
+    }
+    
+    @Override
+    public String getUsername(){
+
+        return email;
+    }
+
+    @Override
+    public String getPassword(){
+
+        return password;
+    }
 
     @Column(name = "isAdmin", nullable = false)
     private Boolean isAdmin= false;

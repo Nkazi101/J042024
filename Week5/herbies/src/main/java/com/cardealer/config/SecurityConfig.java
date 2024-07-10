@@ -8,7 +8,12 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.AuthenticationProvider;
+import org.springframework.security.authentication.ProviderManager;
+import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
+import org.springframework.security.config.annotation.authentication.configuration.EnableGlobalAuthentication;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
@@ -17,12 +22,19 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.core.userdetails.UserDetailsService;
 
+import static com.cardealer.enums.UserRole.SELLER;
+
+import java.util.List;
+
+import com.cardealer.enums.Permission;
+import com.cardealer.enums.UserRole;
 import com.cardealer.services.UserService;
 
 //indicates that this class contains spring bean definitions
 @Configuration
 //enables web security support and provides the spring mvc integration
 @EnableWebSecurity
+@EnableGlobalAuthentication
 public class SecurityConfig {
     
    
@@ -48,9 +60,12 @@ public class SecurityConfig {
         .authorizeHttpRequests(authorizeRequests -> authorizeRequests
         //specify the url patterns and their access rules
         //.permitAll() allows anyone to access the endpoints
-        .requestMatchers("/", "/signin", "/signinsubmit", "/cars", "/cardetail/{id}", "/signup", "/cart", "/WEB-INF/jsp/*", "/add/{id}", "/remove/{id}", "/userprofile", "editprofile/{id}","/editprofile", "/css/**").permitAll()
+        .requestMatchers("/", "/signin", "/signinsubmit", "/cars", "/cardetail/{id}", "/signup", "/cart", "/WEB-INF/jsp/*", "/add/{id}", "/remove/{id}", "/userprofile", "/logout", "editprofile/{id}","/editprofile", "/css/**").permitAll()
         //.requestMatchers is used to configure url patterns and their access rules
-        // .requestMatchers("/transactions", "/addcar").hasAnyRole("SELLER")
+        
+        //hasRole() checks the granted authorities of the authenticated object
+        .requestMatchers("/transactions").hasRole(SELLER.name())
+        .requestMatchers(HttpMethod.GET, "/transactions").hasAuthority(Permission.SELLER_READ.name())
         // .requestMatchers("/v1/checkout/sessions").hasAnyAuthority("ROLE_BUYER")
         //any other request MUST be authenticated
         .anyRequest().authenticated()
@@ -83,6 +98,7 @@ public class SecurityConfig {
     
     .sessionManagement(session -> session
 
+    //Create a new session and copy all existing session attributes to the new session.
     .sessionFixation().migrateSession()
     //define our session creation policy
     .sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED)
@@ -93,7 +109,6 @@ public class SecurityConfig {
     .maxSessionsPreventsLogin(false)
 
     
-
     ) ;
 
         return http.build();
@@ -117,10 +132,38 @@ public class SecurityConfig {
         
     }
 
+
+
+    //should be automatically triggered by spring security when an authentication request is made
+    @Bean
+    public DaoAuthenticationProvider authenticationProvider(){
+
+        DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
+
+        authProvider.setUserDetailsService(userDetailsService());
+        authProvider.setPasswordEncoder(passwordEncoder());
+        return authProvider;
+
+    }
+
+    @Bean
+    public ProviderManager authManager(List<AuthenticationProvider> provider){
+
+        return new ProviderManager(provider);
+    }
+
+    //
+//    @Autowired
+//     protected void configure(AuthenticationManagerBuilder auth) throws Exception{
+
+//        auth.authenticationProvider(authenticationProvider());
+
+//     }
+
     //UserDetailsService bean
     //register our own "UserService class" as the UserDetailsService bean, which is used to load user details from the database. It does that via a method called "loadUserByUsername"
     @Bean
-    public UserDetailsService UserDetailsService(){
+    public UserDetailsService userDetailsService(){
         return userService;
     }
 

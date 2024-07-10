@@ -20,6 +20,7 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.PrePersist;
 import jakarta.persistence.Table;
 import lombok.Data;
+import lombok.Getter;
 
 //model is the structure of the data that your application will manage
 //marks a class as a persistent entity
@@ -83,6 +84,7 @@ public class Car {
     @Column(name = "vin", unique = true, nullable = false)
     private String vin;
 
+   
     @Column(name = "photoUrl")
     public String photoUrl;
 

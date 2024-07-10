@@ -95,7 +95,7 @@ public class UserController {
          session.setAttribute("user", authenticatedUser);
 
          session.setAttribute("userRole", authenticatedUser.getRole());
-         
+
          //the parameters of addAttribute include: "attrbuteName" used to access the object on the webpage, and then you have the actual object you want to pass to the webpage
          model.addAttribute("user", authenticatedUser);
 
