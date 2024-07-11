@@ -49,6 +49,7 @@ public class UserService implements UserDetailsService {
 
         user.setRole(UserRole.BUYER);
         user.setPassword(passwordEncoder.encode(user.getPassword()));
+        
         User savedUser =  userRepository.save(user);
 
         return savedUser;

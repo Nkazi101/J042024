@@ -24,6 +24,7 @@ public class TransactionController {
     private TransactionRepository transactionRepository;
 
 
+    @PreAuthorize("hasRole('SELLER') AND hasAuthority('seller:read')")
     @GetMapping("/transactions")
     public String transactions(Model model){
 

@@ -14,6 +14,8 @@ import org.springframework.security.authentication.dao.DaoAuthenticationProvider
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.authentication.configuration.EnableGlobalAuthentication;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
@@ -34,7 +36,7 @@ import com.cardealer.services.UserService;
 @Configuration
 //enables web security support and provides the spring mvc integration
 @EnableWebSecurity
-@EnableGlobalAuthentication
+@EnableMethodSecurity(prePostEnabled = true)
 public class SecurityConfig {
     
    
@@ -64,8 +66,9 @@ public class SecurityConfig {
         //.requestMatchers is used to configure url patterns and their access rules
         
         //hasRole() checks the granted authorities of the authenticated object
-        .requestMatchers("/transactions").hasRole(SELLER.name())
-        .requestMatchers(HttpMethod.GET, "/transactions").hasAuthority(Permission.SELLER_READ.name())
+        // .requestMatchers("/transactions").hasRole(SELLER.name())
+        
+        // .requestMatchers(HttpMethod.GET, "/transactions").hasAuthority(Permission.SELLER_READ.name())
         // .requestMatchers("/v1/checkout/sessions").hasAnyAuthority("ROLE_BUYER")
         //any other request MUST be authenticated
         .anyRequest().authenticated()
@@ -146,11 +149,11 @@ public class SecurityConfig {
 
     }
 
-    @Bean
-    public ProviderManager authManager(List<AuthenticationProvider> provider){
+    // @Bean
+    // public ProviderManager authManager(List<AuthenticationProvider> provider){
 
-        return new ProviderManager(provider);
-    }
+    //     return new ProviderManager(provider);
+    // }
 
     //
 //    @Autowired
