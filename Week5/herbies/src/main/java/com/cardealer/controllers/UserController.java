@@ -46,8 +46,6 @@ public class UserController {
     @GetMapping("/")
     public String loadHome(){
 
-
-
         return "home";
     }
 

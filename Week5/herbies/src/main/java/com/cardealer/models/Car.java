@@ -107,7 +107,7 @@ public class Car {
 
 
     public Car(String manufacturerName, String model, int year, String color, String transmission, double mileage,
-    String description, String engineType, BodyStyle bodyStyle, double price,
+    String description, String engineType, BodyStyle bodyStyle, LocalDate dateAdded, double price,
             boolean isAvailable, boolean isNew, String vin) {
         this.manufacturerName = manufacturerName;
         this.model = model;
@@ -119,6 +119,7 @@ public class Car {
         this.description = description;
         this.engineType = engineType;
         this.bodyStyle = bodyStyle;
+        this.dateAdded = dateAdded;
         this.price = price;
         this.isAvailable = isAvailable;
         this.isNew = isNew;

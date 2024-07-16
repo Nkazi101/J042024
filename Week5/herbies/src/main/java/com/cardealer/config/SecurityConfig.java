@@ -87,7 +87,7 @@ public class SecurityConfig {
         .permitAll()
         
     )
-
+        
     //configure the logout functionality
     .logout(logout -> logout
     //URL to trigger logout

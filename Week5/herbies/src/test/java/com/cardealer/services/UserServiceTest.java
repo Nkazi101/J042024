@@ -43,10 +43,17 @@ public class UserServiceTest {
     @Mock
     private AuthenticationManager authenticationManager;
 
+    User user = new User();
+
     //initialize the mock objects. this line is necessary for processing the annotations and creating the mock objects
     //@BeforeEach is used to specify a method that should run before each test in the class
     @BeforeEach
     void setUp(){
+
+
+        user.setEmail("timeflies@gmail.com");
+        user.setPassword("password");
+        user.setRole(UserRole.BUYER);
 
         MockitoAnnotations.openMocks(this);
     }
@@ -55,19 +62,14 @@ public class UserServiceTest {
     @Test
     void testSignUp(){
 
-        User user = new User();
-        
-
-        user.setEmail("timeflies@gmail.com");
-        user.setPassword("password");
-        user.setRole(UserRole.BUYER);
 
         //method stubbing: we want to be able to verify that the signup method correctly uses the encoded password WITHOUT worrying about the actual implementation of the of the passwordEncoder 
+        //stubs provide predictable behavior during unit tests to make it more reliable
         when(passwordEncoder.encode(user.getPassword())).thenReturn("encodedPassword");
 
         when(userRepository.save(any(User.class))).thenReturn(user);
 
-        //very the behavior through our assertion
+        //verify the behavior through our assertion
         User savedUser = userService.signUp(user);
 
         assertNotNull(savedUser);
@@ -79,8 +81,12 @@ public class UserServiceTest {
         verify(userRepository, times(1)).save(any(User.class));
 
 
-
     }
+
+
+
+
+
 
 
     
