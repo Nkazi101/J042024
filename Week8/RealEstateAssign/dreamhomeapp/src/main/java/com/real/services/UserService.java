@@ -17,5 +17,32 @@ public class UserService {
 
         return userRepository.save(user);
     }
+
+
+    public User signIn(User user)throws Exception{
+
+        User foundUser = userRepository.findByEmail(user.getEmail());
+
+        if(foundUser == null){
+
+            throw new Exception("User not found");
+
+        }
+
+        if(!foundUser.getPassword().equals(user.getPassword())){
+            throw new Exception("Invalid credentials");
+        }
+
+        return foundUser;
+
+    }
+
+    public User findById(Long id) {
+
+        User user = userRepository.findById(id).orElse(null);
+
+        return user;
+
+    }
     
 }

@@ -53,6 +53,7 @@ public class User implements UserDetails {
     @Column(name = "phonenumber")
     private String phoneNumber;
 
+    // in a one-to-one relatioship, @JoinColumn is used to specify the column that acts as the foreign key in the parent entity
     @OneToOne
     @JoinColumn(name = "cart_id", referencedColumnName = "id")
     private Cart cart;

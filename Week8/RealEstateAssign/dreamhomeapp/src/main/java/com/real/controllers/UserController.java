@@ -6,6 +6,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -43,6 +44,7 @@ public class UserController {
     public ResponseEntity<Object> signup(@RequestBody User user){
 
         try {
+
             User savedUser = userService.signup(user);
             return new ResponseEntity<Object>(savedUser, HttpStatus.CREATED);
 
@@ -64,7 +66,59 @@ public class UserController {
 
     }
 
+    @RequestMapping(
+        value="/signin",
+        consumes=MediaType.APPLICATION_JSON_VALUE,
+        produces = MediaType.APPLICATION_JSON_VALUE,
+        method=RequestMethod.POST
+    )
+    public ResponseEntity<Object> signIn(@RequestBody User user){
+
+        try{
+
+            User loggedinUser = userService.signIn(user);
+            return new ResponseEntity<Object>(loggedinUser,HttpStatus.OK);
+        }
+
+        catch(Exception e){
+            System.out.println(e.getMessage());
+        return new ResponseEntity<Object>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
+        catch(Error e){
+        System.out.println(e.getMessage());
+        return new ResponseEntity<Object>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+
+    }
 
 
+}
+
+
+@RequestMapping(
+    value="/finduserbyid/{id}",
+    produces = MediaType.APPLICATION_JSON_VALUE,
+    method=RequestMethod.GET
+)
+public ResponseEntity<Object> findUserById(@PathVariable Long id){
+
+
+    try{
+
+        User foundUser = userService.findById(id);
+        return new ResponseEntity<Object>(foundUser,HttpStatus.OK);
+
+    }
+    catch(Exception e){
+        System.out.println(e.getMessage());
+    return new ResponseEntity<Object>(e.getMessage(), HttpStatus.BAD_REQUEST);
+    }
+    catch(Error e){
+    System.out.println(e.getMessage());
+    return new ResponseEntity<Object>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+
+}
+
+
+}
 
 }
