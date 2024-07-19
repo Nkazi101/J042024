@@ -2,6 +2,8 @@ import React, { useEffect } from 'react'
 import { useState } from 'react';
 import PropertyBox from '../reusables/PropertyBox';
 import axios from 'axios';
+import '../css/propertylist.css'
+import { Link } from 'react-router-dom';
 
 function PropertyList() {
 
@@ -29,8 +31,9 @@ function PropertyList() {
         return properties.map((property) => {
 
             return (
-
+                <Link key={property.id} to={`/property/${property.id}`}>
                 <PropertyBox property ={property}/>
+                </Link>
             )
 
         })
@@ -40,8 +43,13 @@ function PropertyList() {
 
   return (
     <div>
-        <h1>Properties</h1>
+    <div className='header'>
+    <h1>Properties</h1>
+    </div>
+    <div className='propertylist'>
+    
         {renderProperties()}
+    </div>
     </div>
 
 

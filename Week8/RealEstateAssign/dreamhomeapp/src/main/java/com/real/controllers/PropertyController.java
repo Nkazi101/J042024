@@ -6,12 +6,14 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 import com.real.models.Property;
+import com.real.models.User;
 import com.real.services.PropertyService;
 
 @RestController
@@ -44,8 +46,34 @@ public class PropertyController {
 
 }      
 
-        
-    } 
+} 
+    
+
+
+    @RequestMapping(
+    value="/findpropertybyid/{id}",
+    produces = MediaType.APPLICATION_JSON_VALUE,
+    method=RequestMethod.GET
+)
+public ResponseEntity<Object> findPropertyById(@PathVariable Long id){
+
+
+    try{
+
+        Property foundProperty = propertyService.findById(id);
+        return new ResponseEntity<Object>(foundProperty,HttpStatus.OK);
+
+    }
+    catch(Exception e){
+        System.out.println(e.getMessage());
+    return new ResponseEntity<Object>(e.getMessage(), HttpStatus.BAD_REQUEST);
+    }
+    catch(Error e){
+    System.out.println(e.getMessage());
+    return new ResponseEntity<Object>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+
+}      
 
     
+}
 }

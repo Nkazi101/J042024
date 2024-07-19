@@ -9,6 +9,7 @@ import axios from 'axios';
 import { useEffect } from 'react';
 import PropertyList from './pages/PropertyList';
 import PageWrapper from './reusables/PageWrapper';
+import PropertyDetails from './pages/PropertyDetails';
 
 function App() {
 
@@ -54,6 +55,7 @@ function App() {
     <Route path="/signup" element = {<SignUp user={user} setUser={setUser}/>}/>
     <Route path="/signin" element = {<SignIn user={user} setUser={setUser}/>}/>
     <Route path="/properties" element = {<PropertyList user={user} setUser={setUser}/>}/>
+    <Route path="/property/:propertyId" element = {<PropertyDetails user={user} setUser={setUser}/>}/>
 
 
     </Routes>
